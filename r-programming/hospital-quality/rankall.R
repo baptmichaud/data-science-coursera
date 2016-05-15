@@ -22,11 +22,7 @@ rankall <- function(outcome, num = "best") {
         
         # Split by State
         statesData <- split(statesData, statesData$State)
-        
-        #message(str(statesData))
-        #str(statesData)
-        #lapply(statesData[, "Rate"], order, statesData[, "Hospital.Name"])
-        
+
         results <- data.frame("Hospital.Name"=character(), "State"=character(), stringsAsFactors = FALSE) 
 
         colNames <- c("Hospital.Name", "State")
