@@ -1,2 +1,2 @@
-# datasciencecoursera
-Repository used to validate Data Science toolbox course
+# Data Science Specialization - Assignments folder
+Repository used to validate the Data Science Specialization on Coursera
