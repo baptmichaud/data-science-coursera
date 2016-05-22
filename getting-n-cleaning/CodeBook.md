@@ -3,6 +3,7 @@
 ## Purpose
 
 The purpose of this project is to demonstrate my ability to collect, work with, and clean a data set. 
+
 The goal is to prepare tidy data that can be used for later analysis
 
 The data set can be downloaded [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
@@ -12,6 +13,7 @@ The data set can be downloaded [here](https://d396qusza40orc.cloudfront.net/getd
 ### The dataset
 
 The dataset used is called __Human Activity Recognition Using Smartphones Dataset__
+
 I have used the version 1.0 of this dataset during this analysis.
 
 Author comment:
@@ -34,7 +36,7 @@ The dataset includes the following files
 | File | Description |
 | ---- | ----------- | 
 | features_info.txt | Shows information about the variables used on the feature vector. |
-| features.txt_ | List of all features |
+| features.txt | List of all features |
 | activity_labels.txt | Links the class labels with their activity name |
 | train/X_train.txt | Training set |
 | train/y_train.txt | Training labels |
@@ -48,18 +50,54 @@ The dataset includes the following files
 ### Notes
 
 Features are normalized and bounded within [-1,1].
+
 Each feature vector is a row on the text file.
 
 ### References & Licence
 
 [1] Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
+
 This dataset is distributed AS-IS and no responsibility implied or explicit can be addressed to the authors or their institutions for its use or misuse. Any commercial use is prohibited.
+
 Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.
 
 
 ## Why this data set is not tidy ?
 
 _in progress_
+
+## Dataset analysis steps
+
+Firstly, we need to initialize the working directory, download the dataset and unzip it
+
+```javascript
+# Create a working folder
+if(!file.exists("~/getdata-project")) { 
+        dir.create("~/getdata-project") 
+}
+
+datasetUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+datasetZip <- "~/getdata-project/getdata-project.zip"
+
+# Download the messy dataset
+if(!file.exists(datasetZip)) {
+        download.file(datasetUrl, destfile=datasetZip, method="libcurl", mode="wb")
+        message("The dataset has been downloaded")
+} else { 
+        message("The dataset has been downloaded previously, using old dataset")
+}
+
+# Unzip the dataset
+unzip(datasetZip, exdir="~/getdata-project")
+```
+
+We have now a unzipped messy dataset
+
+```javascript
+> list.files('~/getdata-project/UCI HAR Dataset')
+[1] "activity_labels.txt" "features.txt"        "features_info.txt"  
+[4] "README.txt"          "test"                "train"              
+```
 
 ## Transformation steps 
 
