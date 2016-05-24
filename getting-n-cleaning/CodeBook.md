@@ -41,16 +41,15 @@ The dataset includes the following files
 | train/X_train.txt | Training set |
 | train/y_train.txt | Training labels |
 | train/subject_train.txt | Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30 |
-| train/Inertial Signals/total_acc_x_train.txt | The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis |
-| train/Inertial Signals/body_acc_x_train.txt | The body acceleration signal obtained by subtracting the gravity from the total acceleration |
-| train/Inertial Signals/body_gyro_x_train.txt | The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second |
 | test/X_test.txt | Test set |
 | test/y_test.txt | Test labels |
 | test/subject_test.txt | Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30 |
 | test/Inertial Signals/total_acc_x_test.txt | The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis |
 | test/Inertial Signals/body_acc_x_test.txt | The body acceleration signal obtained by subtracting the gravity from the total acceleration |
 | test/Inertial Signals/body_gyro_x_test.txt | The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second |
-
+| train/Inertial Signals/total_acc_x_train.txt | The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis |
+| train/Inertial Signals/body_acc_x_train.txt | The body acceleration signal obtained by subtracting the gravity from the total acceleration |
+| train/Inertial Signals/body_gyro_x_train.txt | The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second |
 _The Inertial Signals will not be used._
 
 ### Notes
@@ -66,6 +65,10 @@ Each feature vector is a row on the text file.
 This dataset is distributed AS-IS and no responsibility implied or explicit can be addressed to the authors or their institutions for its use or misuse. Any commercial use is prohibited.
 
 Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.
+
+## Variables
+
+
 
 ## Dataset analysis steps
 
@@ -102,6 +105,8 @@ We have now a unzipped messy dataset
 [1] "activity_labels.txt" "features.txt"        "features_info.txt"  
 [4] "README.txt"          "test"                "train"              
 ```
+
+---
 
 We can now load sets and analyze their structures.
 
@@ -200,8 +205,6 @@ __We can set the names of the variables__
 
 ```javascript
 > x_test <- read.table("test/X_test.txt", stringsAsFactors = FALSE)
-Warning message:
-closing unused connection 3 (http://biostat.jhsph.edu/~jleek/contact.html) 
 > str(x_test)
 'data.frame':	2947 obs. of  561 variables:
  $ V1  : num  0.257 0.286 0.275 0.27 0.275 ...
@@ -218,6 +221,7 @@ The Y file contains the activity label assigned to each observations. You can ch
  $ V1: int  5 5 5 5 5 5 5 5 5 5 ...
 > factor(y_test)
 ...Levels: 1 2 3 4 5 6
+```
 
 The train sets have been loaded in the same way
 
@@ -227,7 +231,9 @@ names(x_train) <- features[, "Feature"]
 y_train <- read.table("train/y_train.txt")
 ```
 
-### We have finished to analyze the dataset. Let's now transform it and create a tidy dataset!
+### We have finished to analyze the dataset. 
+
+### Let's now transform it and create a tidy dataset!
 
 ## Transformation steps 
 
