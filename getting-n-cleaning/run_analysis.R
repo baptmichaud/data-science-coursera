@@ -78,4 +78,4 @@ meltedData <- melt(allData, id = id_labels, measure_labels = measures)
 tidy_data <- dcast(meltedData, subjectID + activity ~ variable, mean)
 
 # Save the data
-write.table(tidy_data, file = "./tidy_data.txt")
+write.table(tidy_data, file = "./tidy_data.txt", row.names = FALSE)
