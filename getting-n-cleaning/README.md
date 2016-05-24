@@ -6,6 +6,7 @@ This repository contains 2 files:
 
 * __run_analysis.R__ : an R script that transform a messy data set into a tidy dataset
 * __CodeBook.md__ : a code book that describes the variables, the data, and any transformations or work that i performed to clean up the data into the **run_analysis.R** file
+* __tidy_data.txt__ : the result of the run_analysis.R script
 
 ## Purpose of this analysis
 

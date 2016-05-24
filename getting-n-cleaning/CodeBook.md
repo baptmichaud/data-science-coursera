@@ -8,6 +8,8 @@ The goal is to prepare tidy data that can be used for later analysis
 
 The data set can be downloaded [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 
+The output result is a file called __tidy_data.txt__
+
 ## Data and Variables description
 
 ### The dataset
@@ -50,6 +52,7 @@ The dataset includes the following files
 | train/Inertial Signals/total_acc_x_train.txt | The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis |
 | train/Inertial Signals/body_acc_x_train.txt | The body acceleration signal obtained by subtracting the gravity from the total acceleration |
 | train/Inertial Signals/body_gyro_x_train.txt | The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second |
+
 _The Inertial Signals will not be used._
 
 ### Notes
@@ -68,7 +71,29 @@ Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012
 
 ## Variables
 
+Below, the description of all variables used in the run_analysis.R script:
 
+| Variable | Description | Type |
+| -------- | ----------- | ---- |
+| datasetUrl | URL used to download the dataset | character |
+| datasetZip | File path to save the dataset downloaded | character |
+| activity_label | Data frame containing the activity extracted from the file 'activity_labels.txt' | Data Frame |
+| features | Data frame containing the features extracted from the file 'features.txt' | Data Frame |
+| x_test | Data frame containing the data extracted from the file 'x_test.txt' | Data Frame |
+| subject_test | Data frame containing the data extracted from the file 'subject_test.txt | Data Frame |
+| y_test | Data frame containing the data extracted from the file 'y_test.txt' | Data Frame |
+| testingData | Data frame containing the merge of x_test, subject_test and y_test Data Frame | Data Frame |
+| x_train | Data frame containing the data extracted from the file 'x_train.txt' | Data Frame |
+| subject_train | Data frame containing the data extracted from the file 'subject_train.txt | Data Frame |
+| y_train | Data frame containing the data extracted from the file 'y_train.txt' | Data Frame |
+| trainingData | Data frame containing the merge of x_train, subject_train and y_train Data Frame | Data Frame |
+| allData | Data Frame containing the merge of testingData and trainingData filtered by the variable columnsWanted | Data Frame |
+| featuresWanted | Vector of all features Index that we want to keep (based on the regex 'mean|std') | Vector(int) |
+| columnsWanted | Vector of all columns Index that we want to keep | Vector(num) |
+| id_labels | Vector of all columns containing the Observation ID (subjectID, activityID, activity) | Vector(char) |
+| measures | Vector of all variables measured (total:79) | Vector(char) |
+| meltedData | Result of the melt between id_labels and measures variables | Data Frame |
+| tidy_data | Tidy data set containing the cast of the molten Data Frame (meltedData) | Data Frame |
 
 ## Dataset analysis steps
 
@@ -237,5 +262,44 @@ y_train <- read.table("train/y_train.txt")
 
 ## Transformation steps 
 
-_in progress_
+Requirement 1) The first step is to merge the test sets and train sets
 
+```javascript
+testingData <- cbind(x_test, subject_test, y_test)
+trainingData <- cbind(x_train, subject_train, y_train)
+allData <- rbind(trainingData, testingData)
+```
+
+Requirement 2) Extracts only the measurements on the mean and standard deviation for each measurement + subjectID (562) and activityID (563)
+
+```javascript
+featuresWanted <- c(grep("mean|std", features$feature))
+columnsWanted <- c(featuresWanted, 562, 563)
+# Filter the data
+allData <- allData[,columnsWanted]
+```
+
+Requirement 3) Uses descriptive activity names to name the activities in the data set
+
+```javascript
+allData <- merge(allData, activity_label, by.x="activityID", by.y="ID")
+```
+
+Requirement 4) Appropriately labels the data set with descriptive variable names.
+
+```javascript
+colnames(allData) <- c("activityID", features[featuresWanted, "feature"], "subjectID", "activity")
+```
+
+Requirement 5) From the data set in step 4, creates a second, independent  tidy data set with the average of each variable for each activity and each subject
+
+```javascript
+id_labels <- c("subjectID", "activityID", "activity")
+measures <- setdiff(colnames(allData), id_labels)
+# Melt the data by subject and activity
+meltedData <- melt(allData, id = id_labels, measure_labels = measures)
+# Compute the mean
+tidy_data <- dcast(meltedData, subjectID + activity ~ variable, mean)
+# Save the data
+write.table(tidy_data, file = "./tidy_data.txt")
+```
