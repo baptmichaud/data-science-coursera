@@ -8,6 +8,8 @@ This repository contains 2 files:
 * __CodeBook.md__ : a code book that describes the variables, the data, and any transformations or work that i performed to clean up the data into the **run_analysis.R** file
 * __tidy_data.txt__ : the result of the run_analysis.R script
 
+__Open the Code Book to know the variables and the process__
+
 ## Purpose of this analysis
 
 One of the most exciting areas in all of data science right now is wearable computing - see for example this article . 
