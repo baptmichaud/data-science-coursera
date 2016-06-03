@@ -16,7 +16,7 @@ data$DateTime <- as.POSIXct(paste(data$Date, data$Time), format="%Y-%m-%d %H:%M:
 png(filename = "plot3.png")
 
 # Generate plot
-with(data, plot(DateTime, Sub_metering_1, type = "n", ylab = "Energy sub metering"))
+with(data, plot(DateTime, Sub_metering_1, type = "n", xlab = "", ylab = "Energy sub metering"))
 points(data$DateTime, data$Sub_metering_1, type = "l", col = "black")
 points(data$DateTime, data$Sub_metering_2, type = "l", col = "red")
 points(data$DateTime, data$Sub_metering_3, type = "l", col = "blue")

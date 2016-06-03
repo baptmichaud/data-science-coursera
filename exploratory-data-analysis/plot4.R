@@ -27,7 +27,7 @@ with(data, plot(DateTime, Global_active_power, type="l", xlab = "", ylab = "Glob
 with(data, plot(DateTime, Voltage, xlab = "datetime", ylab = "Voltage", type="l"))
 
 # Plot 3
-with(data, plot(DateTime, Sub_metering_1, type = "n", ylab = "Energy sub metering"))
+with(data, plot(DateTime, Sub_metering_1, type = "n", ylab = "Energy sub metering", xlab = ""))
 points(data$DateTime, data$Sub_metering_1, type = "l", col = "black")
 points(data$DateTime, data$Sub_metering_2, type = "l", col = "red")
 points(data$DateTime, data$Sub_metering_3, type = "l", col = "blue")
