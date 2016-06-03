@@ -31,7 +31,7 @@ with(data, plot(DateTime, Sub_metering_1, type = "n", ylab = "Energy sub meterin
 points(data$DateTime, data$Sub_metering_1, type = "l", col = "black")
 points(data$DateTime, data$Sub_metering_2, type = "l", col = "red")
 points(data$DateTime, data$Sub_metering_3, type = "l", col = "blue")
-legend("topright", col = c("black", "red", "blue"), legend =  c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty = "solid")
+legend("topright", bty = "n", col = c("black", "red", "blue"), legend =  c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty = "solid")
 
 # Plot 4
 with(data, plot(DateTime, Global_reactive_power, xlab = "datetime", type="l"))
